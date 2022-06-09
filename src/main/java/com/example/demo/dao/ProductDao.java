@@ -30,6 +30,7 @@ public class ProductDao {
 		param.addValue("userNo", userNo);
 		
 		List<Product> result = jdbcTemplate.query(sql,param, new BeanPropertyRowMapper<Product>(Product.class));
+		
 		return result.isEmpty()? null: result;
 	}
 	

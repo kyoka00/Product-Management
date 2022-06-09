@@ -39,7 +39,7 @@
 				<td>${fn:escapeXml(p.getStartingDate())}</td>
 				<td>${fn:escapeXml(p.getExpirationDate())}</td>
 				<td><c:if test= "${p.isFavorite() == TRUE}">a</c:if></td>
-				<td><a class="detail_btn" href="detail?productId=${p.getProductId()}"> 詳細</a></td>
+				<td><a class="detail_btn" href="detail?productId=${p.getProductId()}"> 更新</a></td>
 			</tr>
 		</c:forEach>
 
