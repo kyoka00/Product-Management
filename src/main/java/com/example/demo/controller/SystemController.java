@@ -65,6 +65,10 @@ public class SystemController {
 			return "menu";
 		}
 	}
+	@RequestMapping(value="/signupMenu", method=RequestMethod.GET)
+	public String signupMenu(@ModelAttribute("user") UserForm uform, Model model){
+		return "signup";
+	}
 	
 	@RequestMapping(value="/logout", method=RequestMethod.GET)
 	public String logout(@ModelAttribute("user") UserForm uform,@ModelAttribute("product") ProductForm pform, Model model){
@@ -198,6 +202,7 @@ public class SystemController {
 		session.setAttribute("productList",list);
 		return "history";
 	}
+	
 	public void showMenu(Integer userNo) {
 		List<Product> list = pDao.notFinished(userNo);
 		session.setAttribute("productList",list);

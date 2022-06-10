@@ -25,7 +25,7 @@
 <div class="outside">
 	<h1>購入・使用履歴</h1>
 	<form:form action ="search" modelAttribute="product" method="get">
-	<form:input path="searchKey"/>
+	<form:input path="searchKey" placeholder="検索"/>
 	<form:button>検索</form:button>
 	</form:form>
 	<form:form action="sort2" modelAttribute="product" method= "get">

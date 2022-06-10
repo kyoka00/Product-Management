@@ -24,7 +24,6 @@
 <form:password path="password"/><br>
 <form:button>ログイン</form:button>
 </form:form>
-<a href="signup" class="blue_btn">新規登録</a>
 </div>
 </body>
 </html>
