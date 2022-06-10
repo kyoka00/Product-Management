@@ -28,7 +28,15 @@
 	<form:input path="searchKey"/>
 	<form:button>検索</form:button>
 	</form:form>
-	
+	<form:form action="sort2" modelAttribute="product" method= "get">
+          <form:select class="base-text" path = "sortCase">
+            <form:option value ="0">登録順</form:option>
+            <form:option value = "1">カテゴリ</form:option>
+            <form:option value = "2">購入日</form:option>
+            <form:option value ="3">使用期限</form:option>
+          </form:select>
+          <form:button>並び替え</form:button>
+        </form:form>
 	<table>
 		<tr>
 			<th>商品名</th>

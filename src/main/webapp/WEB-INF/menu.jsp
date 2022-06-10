@@ -26,6 +26,17 @@
 	<a href="insertMenu" class="white_btn">追加</a>
 	</div>
 	<p>${msg}</p>
+	
+	<form:form action="sort" modelAttribute="product" method= "get">
+          <form:select class="base-text" path = "sortCase">
+            <form:option value ="0">登録順</form:option>
+            <form:option value = "1">カテゴリ</form:option>
+            <form:option value = "2">購入日</form:option>
+            <form:option value ="3">使用期限</form:option>
+          </form:select>
+          <form:button>並び替え</form:button>
+        </form:form>
+        
 	<table>
 		<tr>
 			<th>商品名</th>

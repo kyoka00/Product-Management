@@ -23,10 +23,11 @@
 <h3>追加したい値を選んでください</h3>
 
 <form:form action ="insert" modelAttribute="product" method="post">
-<form:errors key="productName"/>
+
+<form:errors path="productName" cssStyle="color: red"/><br>
 <form:input path="productName" placeholder="商品名"/><br>
 
-<form:errors key="brandName"/>
+
 <form:input path="brandName" placeholder="ブランド名"/><br>
 
 
@@ -36,13 +37,12 @@
 </c:forEach>
 </form:select><br>
 
-<form:errors key="purchaseDate"/><br>
+<form:errors path="purchaseDate" cssStyle="color: red"/><br>
 <form:input class="date_box" path="purchaseDate" type="text" onfocus="this.type='date'" onfocusout="this.type='text'" placeholder="購入日"/><br>
 
-<form:errors key="startingDate"/><br>
 <form:input class="date_box" path="startingDate" type="text" onfocus="this.type='date'" onfocusout="this.type='text'" placeholder="使用開始日"/><br>
 
-<form:errors key="expirationDate" /><br>
+<form:errors path="expirationDate" cssStyle="color: red"/><br>
 <form:input class= "date_box" path="expirationDate" type="text"  onfocus="this.type='date'" onfocusout="this.type='text'" placeholder="使用期限"/><br>
 
 <label>お気に入り</label>

@@ -16,6 +16,7 @@ public class ProductForm {
 	private boolean favorite;
 	private boolean finished;
 	private String searchKey;
+	private Integer sortCase;
 	
 	public Integer getProductId() {
 		return productId;
@@ -76,6 +77,12 @@ public class ProductForm {
 	}
 	public void setSearchKey(String searchKey) {
 		this.searchKey = searchKey;
+	}
+	public Integer getSortCase() {
+		return sortCase;
+	}
+	public void setSortCase(Integer sortCase) {
+		this.sortCase = sortCase;
 	}
 	
 	

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,7 +47,7 @@ public class SystemController {
 	}
 	
 	@PostMapping("/login")
-	public String login(@Validated @ModelAttribute("user") UserForm uform, BindingResult bindingResult, Model model) {
+	public String login(@Validated @ModelAttribute("user") UserForm uform, BindingResult bindingResult,@ModelAttribute("product") ProductForm pform, Model model) {
 		if (bindingResult.hasErrors()) {
 	        return "login";
 	    }
@@ -153,6 +154,50 @@ public class SystemController {
 		return "menu";
 	}
 	
+	@GetMapping("/sort")
+	public String sort(@ModelAttribute("user") UserForm uform, @ModelAttribute("product") ProductForm pform, BindingResult bindingResult, Model model) {
+		Integer sortNo = pform.getSortCase();
+		
+		List<Product> list = (List<Product>) session.getAttribute("productList");
+		switch (sortNo) {
+		case 0:
+			list.sort((p1, p2) -> p1.getProductId() <= p2.getProductId() ? -1 : 1);
+			break;
+		case 1:
+			list.sort((p1,p2) -> p1.getCategoryId() <= p2.getCategoryId() ? -1 :1);
+			break;
+		case 2:
+			list.sort((d1,d2) -> d1.getPurchaseDate().compareTo(d2.getPurchaseDate()));
+			break;
+		case 3:
+			list.sort((d1,d2) -> d1.getExpirationDate().compareTo(d2.getExpirationDate()));
+			break;
+		}
+		session.setAttribute("productList",list);
+		return "menu";
+	}
+	@GetMapping("/sort2")
+	public String sort2(@ModelAttribute("user") UserForm uform, @ModelAttribute("product") ProductForm pform, BindingResult bindingResult, Model model) {
+		Integer sortNo = pform.getSortCase();
+		
+		List<Product> list = (List<Product>) session.getAttribute("productList");
+		switch (sortNo) {
+		case 0:
+			list.sort((p1, p2) -> p1.getProductId() <= p2.getProductId() ? -1 : 1);
+			break;
+		case 1:
+			list.sort((p1,p2) -> p1.getCategoryId() <= p2.getCategoryId() ? -1 :1);
+			break;
+		case 2:
+			list.sort((d1,d2) -> d1.getPurchaseDate().compareTo(d2.getPurchaseDate()));
+			break;
+		case 3:
+			list.sort((d1,d2) -> d1.getExpirationDate().compareTo(d2.getExpirationDate()));
+			break;
+		}
+		session.setAttribute("productList",list);
+		return "history";
+	}
 	public void showMenu(Integer userNo) {
 		List<Product> list = pDao.notFinished(userNo);
 		session.setAttribute("productList",list);

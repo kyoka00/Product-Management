@@ -26,11 +26,10 @@
 <form:form action ="update" modelAttribute="product" method="post">
 <form:hidden path ="productId" value="${fn:escapeXml(chosenProduct.getProductId())}"/>
 <label>商品名</label><br>
-<form:errors key="productName"/>
+<form:errors path="productName" cssStyle="color: red"/><br>
 <form:input path="productName" value="${fn:escapeXml(chosenProduct.getProductName())}"/><br>
 
 <label>ブランド名</label><br>
-<form:errors key="brandName"/>
 <form:input path="brandName" value="${fn:escapeXml(chosenProduct.getBrandName())}"/><br>
 
 <label>カテゴリ名</label><br>
@@ -41,15 +40,14 @@
 
 </form:select><br>
 <label>購入日</label><br>
-<form:errors key="purchaseDate"/>
+<form:errors path="purchaseDate" cssStyle="color: red"/><br>
 <form:input path="purchaseDate" type="date" value="${fn:escapeXml(chosenProduct.getPurchaseDate())}"/><br>
 
 <label>使用開始日</label><br>
-<form:errors key="startingDate"/>
 <form:input path="startingDate" type="date" value="${fn:escapeXml(chosenProduct.getStartingDate())}"/><br>
 
 <label>使用期限</label><br>
-<form:errors key="expirationDate"/>
+<form:errors path="expirationDate" cssStyle="color: red"/><br>
 <form:input path="expirationDate" type="date" value="${fn:escapeXml(chosenProduct.getExpirationDate())}"/><br>
 
 <label>お気に入り</label><br>
