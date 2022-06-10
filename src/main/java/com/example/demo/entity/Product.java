@@ -90,4 +90,16 @@ public class Product {
 		this.finished = finished;
 		
 	}
+	public Product(Integer productId,String productName, String brandName, Integer categoryId, LocalDate purchaseDate, LocalDate startingDate, LocalDate expirationDate, boolean favorite, boolean finished) {
+		this.productId = productId;
+		this.productName=productName;
+		this.brandName = brandName;
+		this.categoryId = categoryId;
+		this.purchaseDate = purchaseDate;
+		this.startingDate = startingDate;
+		this.expirationDate = expirationDate;
+		this.favorite = favorite;
+		this.finished = finished;
+		
+	}
 }

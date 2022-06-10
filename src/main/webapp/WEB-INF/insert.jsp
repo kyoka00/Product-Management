@@ -6,59 +6,54 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link href="css/commons.css" type="text/css" rel="stylesheet">
 <meta charset="UTF-8">
 <title>追加ページ</title>
 </head>
 <body>
-<header>
-<a href="">ホーム</a>
-<a href="">ログアウト</a>
-<p>さん、こんにちは</p>
-</header>
-
+<nav>
+	<ul>
+		<li><a href="menu" >ホーム</a></li>
+		<li><a href="allMenu">全履歴表示</a></li>
+		<li><a href="logout">ログアウト</a></li>
+		</ul>
+	</nav>
+	<p class="right">${fn:escapeXml(userName)}さん、こんにちは</p>
+<div class="outside">
 <h3>追加したい値を選んでください</h3>
 
 <form:form action ="insert" modelAttribute="product" method="post">
-<label>商品名</label><br>
 <form:errors key="productName"/>
-<form:input path="productName"/><br>
+<form:input path="productName" placeholder="商品名"/><br>
 
-<label>ブランド名</label><br>
 <form:errors key="brandName"/>
-<form:input path="brandName"/><br>
+<form:input path="brandName" placeholder="ブランド名"/><br>
 
 
-<label>カテゴリー名</label>
 <form:select path="categoryId">
 <c:forEach var="c" items="${category}">
 <form:option value="${c.getCategoryId()}">${fn:escapeXml(c.getCategoryName())}</form:option>
 </c:forEach>
 </form:select><br>
 
-<label>購入日</label><br>
-<form:errors key="purchaseDate"/>
-<form:input path="purchaseDate" type="date"/><br>
+<form:errors key="purchaseDate"/><br>
+<form:input class="date_box" path="purchaseDate" type="text" onfocus="this.type='date'" onfocusout="this.type='text'" placeholder="購入日"/><br>
 
-<label>使用開始日</label><br>
-<form:errors key="startingDate"/>
-<form:input path="startingDate" type="date"/><br>
+<form:errors key="startingDate"/><br>
+<form:input class="date_box" path="startingDate" type="text" onfocus="this.type='date'" onfocusout="this.type='text'" placeholder="使用開始日"/><br>
 
-<label>使用期限</label><br>
-<form:errors key="expirationDate"/>
-<form:input path="expirationDate" type="date"/><br>
+<form:errors key="expirationDate" /><br>
+<form:input class= "date_box" path="expirationDate" type="text"  onfocus="this.type='date'" onfocusout="this.type='text'" placeholder="使用期限"/><br>
 
 <label>お気に入り</label>
-
-<form:checkbox path="favorite" value= "1"/>
+<form:checkbox path="favorite" value= "1"/><br>
 
 <label>使用済み</label>
-<form:hidden path="finished" value="0"/>
-<form:checkbox path="finished" value= "1"/>
+<form:checkbox path="finished" value= "1"/><br>
 
 <form:button name="insert">追加</form:button>
-<form:button name="back">戻る</form:button>
 </form:form>
-
-
+<a href="back" class="blue_btn">戻る</a>
+</div>
 </body>
 </html>

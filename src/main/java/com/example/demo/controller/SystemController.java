@@ -59,8 +59,7 @@ public class SystemController {
 		}else {
 			session.setAttribute("userNo", u.getUserNo());
 			session.setAttribute("userName", u.getUserName());
-			List<Product> list = pDao.notFinished(u.getUserNo());
-			session.setAttribute("productList",list);
+			showMenu(u.getUserNo());
 	
 			return "menu";
 		}
@@ -75,8 +74,7 @@ public class SystemController {
 	@RequestMapping(value="/menu", method=RequestMethod.GET)
 	public String menu(@ModelAttribute("user") UserForm uform, @ModelAttribute("product") ProductForm pform, Model model){
 		Integer userNo = (Integer)session.getAttribute("userNo");
-		List<Product> list = pDao.notFinished(userNo);
-		session.setAttribute("productList",list);
+		showMenu(userNo);
 		return "menu";
 	}
 	
@@ -107,20 +105,72 @@ public class SystemController {
 		return "insert";
 	}
 	
-	@RequestMapping(value="/insert", method=RequestMethod.POST)
+	@PostMapping(value="/insert")
 	public String insert (@Validated @ModelAttribute("product") ProductForm pform,  BindingResult bindingResult, Model model) {
-		LocalDate purchase = LocalDate.parse(pform.getPurchaseDate());
-		LocalDate starting = LocalDate.parse(pform.getStartingDate());
-		LocalDate expiration = LocalDate.parse(pform.getExpirationDate());
+		if (bindingResult.hasErrors()) {
+	        return "insert";
+	    }
+		LocalDate [] l =setLocalDate(pform.getPurchaseDate(),pform.getStartingDate(),pform.getExpirationDate());
 		
 		Integer userNo = (Integer)session.getAttribute("userNo");
-		Product product = new Product(pform.getProductName(), pform.getBrandName(), pform.getCategoryId(), purchase, starting, expiration, pform.isFavorite(), pform.isFinished());
+		Product product = new Product( pform.getProductName(), pform.getBrandName(), pform.getCategoryId(), l[0], l[1], l[2], pform.isFavorite(), pform.isFinished());
 		String msg = pDao.insert(userNo, product);
-		session.setAttribute("msg", msg);
-		List<Product> list = pDao.notFinished(userNo);
-		session.setAttribute("productList",list);
+		model.addAttribute("msg", msg);
+		showMenu(userNo);
+		return "menu";
+	}
+	
+	@RequestMapping(value="back", method=RequestMethod.GET)
+	public String back(@ModelAttribute("product") ProductForm pform, Model model) {
+		Integer userNo = (Integer)session.getAttribute("userNo");
+		showMenu(userNo);
 		return "menu";
 	}
 	
 	
+	
+	@RequestMapping(value="/updateMenu", method = RequestMethod.GET)
+	public String updateMenu(@ModelAttribute("product") ProductForm pform, BindingResult bindingResult, Model model) {
+		Integer id = pform.getProductId();
+		Product p = pDao.findById(id);
+		model.addAttribute("chosenProduct",p);
+		List<Categories> category = cDao.select();
+		model.addAttribute("category", category);
+		return "update";
+	}
+	
+	@PostMapping(value="/update")
+	public String update (@Validated @ModelAttribute("product") ProductForm pform,  BindingResult bindingResult, Model model) {
+		if (bindingResult.hasErrors()) {
+	        return "update";
+	    }
+		LocalDate [] l =setLocalDate(pform.getPurchaseDate(),pform.getStartingDate(),pform.getExpirationDate());
+		Integer userNo = (Integer)session.getAttribute("userNo");
+		Product product = new Product(pform.getProductId(),pform.getProductName(), pform.getBrandName(), pform.getCategoryId(), l[0], l[1], l[2], pform.isFavorite(), pform.isFinished());
+		String msg = pDao.update(product);
+		model.addAttribute("msg", msg);
+		showMenu(userNo);
+		return "menu";
+	}
+	
+	public void showMenu(Integer userNo) {
+		List<Product> list = pDao.notFinished(userNo);
+		session.setAttribute("productList",list);
+	}
+	
+	public LocalDate[] setLocalDate(String purchaseDate, String startingDate, String expirationDate) {
+		LocalDate [] changed = new LocalDate[3];
+		LocalDate purchase = LocalDate.parse(purchaseDate);
+		changed[0]=purchase;
+		LocalDate starting =null;
+		if(!Util.isNullOrEmpty(startingDate)) {
+			starting = LocalDate.parse(startingDate);
+		}
+		changed[1]=starting;
+		
+		LocalDate expiration = LocalDate.parse(expirationDate);
+		changed[2] =expiration;
+		return changed;
+	}
+
 }

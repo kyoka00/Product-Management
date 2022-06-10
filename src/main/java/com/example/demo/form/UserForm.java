@@ -3,9 +3,9 @@ package com.example.demo.form;
 import javax.validation.constraints.NotBlank;
 
 public class UserForm {
-	@NotBlank(message ="必須")
+	@NotBlank
 	private String loginId;
-	@NotBlank(message ="必須")
+	@NotBlank
 	private String password;
 	
 	public String getLoginId() {

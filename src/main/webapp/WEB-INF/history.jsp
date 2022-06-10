@@ -3,26 +3,33 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+
 <!DOCTYPE html>
 <html>
 <head>
+<link href="css/commons.css" type="text/css" rel="stylesheet">
 <meta charset="UTF-8">
 <title>購入・使用履歴</title>
 </head>
 <body>
 
-	<header>
-		<a href="menu">ホーム</a> <a href="logout">ログアウト</a>
-		<p>${fn:escapeXml(userName)}さん、こんにちは</p>
-	</header>
-
+	<nav>
+	<ul>
+		<li><a href="menu" >ホーム</a></li>
+		<li><a href="allMenu">全履歴表示</a></li>
+		<li><a href="logout">ログアウト</a></li>
+		</ul>
+	</nav>
+	<p class="right">${fn:escapeXml(userName)}さん、こんにちは</p>
+	
+<div class="outside">
 	<h1>購入・使用履歴</h1>
 	<form:form action ="search" modelAttribute="product" method="get">
 	<form:input path="searchKey"/>
 	<form:button>検索</form:button>
 	</form:form>
 	
-	<table border="1">
+	<table>
 		<tr>
 			<th>商品名</th>
 			<th>ブランド名</th>
@@ -42,11 +49,12 @@
 				<td>${fn:escapeXml(p.getPurchaseDate())}</td>
 				<td>${fn:escapeXml(p.getStartingDate())}</td>
 				<td>${fn:escapeXml(p.getExpirationDate())}</td>
-				<td><c:if test="${p.isFavorite() == TRUE}">○</c:if></td>
-				<td><c:if test="${p.isFinished() == TRUE}">○</c:if></td>
+				<td><c:if test= "${p.isFavorite() == true}"><img src="img/star.png"></c:if></td>
+				<td><c:if test= "${p.isFinished() == true}"><img src="img/check.png"></c:if></td>
 			</tr>
 		</c:forEach>
 	</table>
 
+</div>
 </body>
 </html>

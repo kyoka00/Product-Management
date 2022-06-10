@@ -6,11 +6,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link href="css/commons.css" type="text/css" rel="stylesheet">
 <meta charset="UTF-8">
 <title>ログインページ</title>
 </head>
 <body>
-
+<div class="login">
 <h1>ログイン</h1>
 <p>${msg}</p>
 <form:form action = "login" modelAttribute="user" method="post">
@@ -22,6 +23,6 @@
 <form:errors key = "password"/><br>
 <form:button>ログイン</form:button>
 </form:form>
-
+</div>
 </body>
 </html>

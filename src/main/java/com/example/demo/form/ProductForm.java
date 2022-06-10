@@ -1,12 +1,17 @@
 package com.example.demo.form;
 
+import javax.validation.constraints.NotBlank;
+
 public class ProductForm {
 	private Integer productId;
+	@NotBlank
 	private String productName;
 	private String brandName;
 	private Integer categoryId;
+	@NotBlank
 	private String purchaseDate;
 	private String startingDate;
+	@NotBlank
 	private String expirationDate;
 	private boolean favorite;
 	private boolean finished;

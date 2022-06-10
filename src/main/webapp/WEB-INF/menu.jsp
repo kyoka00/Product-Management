@@ -6,20 +6,27 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link href="css/commons.css" type="text/css" rel="stylesheet">
 <meta charset="UTF-8">
 <title>メニュー画面</title>
 </head>
 <body>
-	<header>
-		<a href="menu">ホーム</a> <a href="logout">ログアウト</a>
-		<p>${fn:escapeXml(userName)}さん、こんにちは</p>
-	</header>
-
+<nav>
+	<ul>
+		<li><a href="menu" >ホーム</a></li>
+		<li><a href="allMenu">全履歴表示</a></li>
+		<li><a href="logout">ログアウト</a></li>
+		</ul>
+	</nav>
+	<p class="right">${fn:escapeXml(userName)}さん、こんにちは</p>
+<div class="outside">
 
 	<h1>使用中</h1>
-	<a href="insertMenu">追加</a>
+	<div class="right">
+	<a href="insertMenu" class="white_btn">追加</a>
+	</div>
 	<p>${msg}</p>
-	<table border=1>
+	<table>
 		<tr>
 			<th>商品名</th>
 			<th>ブランド名</th>
@@ -28,6 +35,7 @@
 			<th>使用開始日</th>
 			<th>使用期限</th>
 			<th>お気に入り</th>
+			<th></th>
 		</tr>
 
 		<c:forEach var="p" items="${productList}" varStatus="status">
@@ -38,12 +46,12 @@
 				<td>${fn:escapeXml(p.getPurchaseDate())}</td>
 				<td>${fn:escapeXml(p.getStartingDate())}</td>
 				<td>${fn:escapeXml(p.getExpirationDate())}</td>
-				<td><c:if test= "${p.isFavorite() == TRUE}">a</c:if></td>
-				<td><a class="detail_btn" href="detail?productId=${p.getProductId()}"> 更新</a></td>
+				<td><c:if test= "${p.isFavorite() == true}"><img src="img/star.png"></c:if></td>
+				<td><a class="grey_btn" href="updateMenu?productId=${p.getProductId()}"> 更新</a></td>
 			</tr>
 		</c:forEach>
 
 	</table>
-	<a href="allMenu">全履歴表示</a>
+</div>
 </body>
 </html>
